@@ -22,6 +22,9 @@ jobs:
         fcli ssc session login --url http://192.168.3.140:8080/ssc --user dodo --password P@ssw0rd4Demo!
         fcli sc-dast session login --ssc-url http://192.168.3.140:8080/ssc -u dodo -p P@ssw0rd4Demo!
         fcli sc-dast scan start -n zerowebappsecurity --settings 3200cdde-7ca3-4167-843b-b20230848a72
+        $uuid = (Get-Content scan_output | Select-String -Pattern '^\s*\d+' | ForEach-Object { $_.Matches.Value })
+        cat scan_output
+        echo "Scan ID:" $uuid
         fcli sc-dast session logout --no-revoke-token
         fcli ssc session logout --no-revoke-token
         echo "Scan successfull"
