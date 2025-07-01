@@ -1,1 +1,25 @@
+name: Fortify on Demand DAST Scan
 
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dast_scan:
+    runs-on: self-hosted # Menggunakan runner self-hosted Anda
+   steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Run Fortify WebInspect DAST Scan
+      run: |
+              fcli ssc session login --url http://192.168.3.140:8080/ssc --user dodo --password P@ssw0rd4Demo!
+              fcli sc-dast session login --ssc-url http://192.168.3.140:8080/ssc -u dodo -p P@ssw0rd4Demo!
+              fcli sc-dast scan start -n zerowebappsecurity --settings 3200cdde-7ca3-4167-843b-b20230848a72
+              fcli sc-dast session logout --no-revoke-token
+              fcli ssc session logout --no-revoke-token
+              echo "Scan successfull"
