@@ -13,6 +13,8 @@ jobs:
   dast_scan:
     runs-on: self-hosted # Menggunakan runner self-hosted Anda
    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Run Fortify WebInspect DAST Scan
       run: |
               fcli ssc session login --url http://192.168.3.140:8080/ssc --user dodo --password P@ssw0rd4Demo!
